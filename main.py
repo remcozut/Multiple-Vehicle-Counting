@@ -50,8 +50,8 @@ else:
 
 classes = model.names  # Store model class names
 
-# cap = cv2.VideoCapture('videos/cars2.mp4')  # Replace with video path if needed
-cap = cv2.VideoCapture('rtsp://surfguru.nl:5555')  # Replace with video path if needed
+cap = cv2.VideoCapture('videos/bh.mp4')  # Replace with video path if needed
+# cap = cv2.VideoCapture('rtsp://surfguru.nl:5555')  # Replace with video path if needed
 
 
 
@@ -109,7 +109,7 @@ while cap.isOpened():
     detected_objects = []
     has_counted = []
     bbox = {}
-    # cv2.imwrite(f"images/{timestamp}.jpg", im.copy())
+
     for track in detections:
         track = track.tolist()
         if len(track) < 6:
@@ -121,6 +121,7 @@ while cap.isOpened():
         txt_color = annotator.get_txt_color(color)
         label = f"{classes[class_id]} ID {track_id}" + (f" ({float(track[5]):.2f})" if show_conf else "")
         class_name = model.names[class_id]
+        cv2.imwrite(f"images/{timestamp}.jpg", im.copy())
         if class_name not in counters.keys():
             continue
         for counter in counters[class_name]:
